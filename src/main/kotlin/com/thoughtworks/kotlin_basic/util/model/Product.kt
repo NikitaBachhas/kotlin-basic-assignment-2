@@ -1,4 +1,4 @@
-package com.thoughtworks.kotlin_basic.util
+package com.thoughtworks.kotlin_basic.util.model
 
 data class Product(
     val sku: String,
