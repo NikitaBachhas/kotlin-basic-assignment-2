@@ -3,7 +3,7 @@ package com.thoughtworks.kotlin_basic.util.model
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class ProductsAndInventoriesService {
+object ProductsAndInventoriesService {
     private val BASE_URL = "http://localhost:3000/"
 
     fun getProductsAndInventoriesAPI(): ProductsAndInventoriesAPI {
