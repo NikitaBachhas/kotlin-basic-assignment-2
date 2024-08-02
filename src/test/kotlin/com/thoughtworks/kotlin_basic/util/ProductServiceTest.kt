@@ -5,6 +5,8 @@ import com.thoughtworks.kotlin_basic.util.model.Product
 import com.thoughtworks.kotlin_basic.util.model.ProductsAndInventoriesAPI
 import com.thoughtworks.kotlin_basic.util.viewmodel.ProductService
 import io.mockk.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import retrofit2.Response
@@ -16,7 +18,8 @@ class ProductServiceTest {
     private val pISvc: ProductsAndInventoriesAPI = mockk()
     private val productService = ProductService()
 
-    private fun captureConsoleOutput(action: () -> Unit): String {
+    private suspend fun captureConsoleOutput(action: () -> Unit): String {
+        delay(5000)
         val originalOut = System.out
         val outputStream = ByteArrayOutputStream()
         System.setOut(PrintStream(outputStream))
@@ -29,7 +32,7 @@ class ProductServiceTest {
     }
 
     @Test
-    fun `fetchAndDisplayProducts - should return normal price if demand of product is normal`() {
+    fun `fetchAndDisplayProducts - should return normal price if demand of product is normal`() = runTest {
         val mockProductsFetched = listOf(
             Product("ABC123", "Electronic Watch", 100.0, "NORMAL", "image1.jpg")
         )
@@ -44,8 +47,6 @@ class ProductServiceTest {
 
         val output = captureConsoleOutput { productService.fetchAndDisplayProducts() }
 
-        println(output)
-
         assertEquals(
             "SKU: ABC123, Name: Electronic Watch, Price: 100.0, Stock: 110, Image URL: image1.jpg",
             output
@@ -53,7 +54,7 @@ class ProductServiceTest {
     }
 
     @Test
-    fun `fetchAndDisplayProducts - should return normal price if demand of product is high demand and stock is more than 100`() {
+    fun `fetchAndDisplayProducts - should return normal price if demand of product is high demand and stock is more than 100`() = runTest  {
         val mockProductsFetched = listOf(
             Product("DEF456", "Sports Shoes", 120.0, "HIGH_DEMAND", "image2.jpg")
         )
@@ -75,7 +76,7 @@ class ProductServiceTest {
     }
 
     @Test
-    fun `fetchAndDisplayProducts - should return 120 percent price if demand of product is high demand and stock is between 30 and 100`() {
+    fun `fetchAndDisplayProducts - should return 120 percent price if demand of product is high demand and stock is between 30 and 100`() = runTest {
         val mockProductsFetched = listOf(
             Product("DEF456", "Sports Shoes", 120.0, "HIGH_DEMAND", "image2.jpg")
         )
@@ -97,7 +98,7 @@ class ProductServiceTest {
     }
 
     @Test
-    fun `fetchAndDisplayProducts - should return 150 percent price if demand of product is high demand and stock is less than 30`() {
+    fun `fetchAndDisplayProducts - should return 150 percent price if demand of product is high demand and stock is less than 30`() = runTest {
         val mockProductsFetched = listOf(
             Product("DEF456", "Sports Shoes", 120.0, "HIGH_DEMAND", "image2.jpg")
         )
