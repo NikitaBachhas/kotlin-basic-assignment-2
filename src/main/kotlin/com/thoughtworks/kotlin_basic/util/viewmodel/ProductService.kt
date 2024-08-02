@@ -10,7 +10,7 @@ import retrofit2.Response
 
 class ProductService {
 
-    suspend fun fetchAndDisplayProducts() {
+    fun fetchAndDisplayProducts() {
         val apiService = ProductsAndInventoriesService.getProductsAndInventoriesService()
 
         val exceptionHandler = CoroutineExceptionHandler { CoroutineContext, throwable -> "Exception: ${throwable.localizedMessage}"}
