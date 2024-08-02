@@ -34,7 +34,7 @@ class ProductService {
                                         val inventories = response.body() ?: return
                                         val productMap = products.associateBy { it.sku }
                                         val stockMap = inventories.groupBy { it.sku }
-                                            .mapValues { (_, inventories) -> inventories.sumOf { it.stock } }
+                                            .mapValues { (_, inventories) -> inventories.sumOf { it.quantity } }
 
                                         productMap.forEach { (sku, product) ->
                                             val totalStock = stockMap[sku] ?: 0
@@ -43,7 +43,7 @@ class ProductService {
                                                 totalStock in 31..100 -> product.price * 1.2
                                                 else -> product.price * 1.5
                                             }
-                                            println("SKU: $sku, Name: ${product.name}, Price: $finalPrice, Stock: $totalStock, Image URL: ${product.imageUrl}")
+                                            println("SKU: $sku, Name: ${product.name}, Price: $finalPrice, Stock: $totalStock, Image URL: ${product.image}")
                                         }
                                     }
 
