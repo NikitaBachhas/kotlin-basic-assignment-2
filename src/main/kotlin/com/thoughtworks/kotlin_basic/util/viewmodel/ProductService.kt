@@ -4,23 +4,21 @@ import com.thoughtworks.kotlin_basic.util.model.Inventory
 import com.thoughtworks.kotlin_basic.util.model.Product
 import com.thoughtworks.kotlin_basic.util.model.ProductsAndInventoriesService
 import kotlinx.coroutines.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import retrofit2.*
 
 class ProductService {
+    fun fetchAndDisplayProducts() = runBlocking{
 
-    fun fetchAndDisplayProducts() {
         val apiService = ProductsAndInventoriesService.getProductsAndInventoriesService()
 
         val exceptionHandler = CoroutineExceptionHandler { CoroutineContext, throwable -> "Exception: ${throwable.localizedMessage}"}
 
-         CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
+        val job = CoroutineScope(Dispatchers.Default + exceptionHandler).launch {
 
             val productsCall = apiService.getProducts()
             val inventoriesCall = apiService.getInventories()
 
-            withContext(Dispatchers.Main){
+            withContext(Dispatchers.IO){
 
                 productsCall.enqueue(object : Callback<List<Product>> {
 
@@ -71,5 +69,6 @@ class ProductService {
                 })
             }
         }
+        job.join()
     }
 }
