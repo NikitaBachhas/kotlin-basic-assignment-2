@@ -6,8 +6,8 @@ data class Inventory(
     @SerializedName("SKU")
     val sku: String,
 
-    @SerializedName("stock")
-    val stock: Int,
+    @SerializedName("quantity")
+    val quantity: Int,
 
     @SerializedName("region")
     val region: String
