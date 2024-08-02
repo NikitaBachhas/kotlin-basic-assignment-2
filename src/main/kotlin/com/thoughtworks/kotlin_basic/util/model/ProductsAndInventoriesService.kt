@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ProductsAndInventoriesService {
     private val BASE_URL = "http://localhost:3000/"
 
-    fun getProductsAndInventoriesAPI(): ProductsAndInventoriesAPI {
+    fun getProductsAndInventoriesService(): ProductsAndInventoriesAPI {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
