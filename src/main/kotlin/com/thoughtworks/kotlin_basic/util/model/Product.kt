@@ -15,6 +15,6 @@ data class Product(
     @SerializedName("type")
     val type: String,
 
-    @SerializedName("imageUrl")
-    val imageUrl: String
+    @SerializedName("image")
+    val image: String
 )
