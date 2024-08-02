@@ -1,6 +1,6 @@
 import com.thoughtworks.kotlin_basic.util.viewmodel.ProductService
 
-fun main() {
+suspend fun main() {
     val productService = ProductService()
 
     productService.fetchAndDisplayProducts()

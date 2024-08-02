@@ -5,8 +5,8 @@ import retrofit2.http.GET
 
 interface ProductsAndInventoriesAPI {
     @GET("products")
-    fun getProducts(): Call<List<Product>>
+    suspend fun getProducts(): Call<List<Product>>
 
     @GET("inventories")
-    fun getInventories(): Call<List<Inventory>>
+    suspend fun getInventories(): Call<List<Inventory>>
 }
