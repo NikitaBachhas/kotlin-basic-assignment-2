@@ -38,10 +38,14 @@ class ProductService {
 
                                         productMap.forEach { (sku, product) ->
                                             val totalStock = stockMap[sku] ?: 0
-                                            val finalPrice = when {
-                                                totalStock > 100 -> product.price
-                                                totalStock in 31..100 -> product.price * 1.2
-                                                else -> product.price * 1.5
+                                            val finalPrice = if (product.type == "NORMAL"){
+                                                product.price
+                                            } else{
+                                                when {
+                                                    totalStock > 100 -> product.price
+                                                    totalStock in 31..100 -> product.price * 1.2
+                                                    else -> product.price * 1.5
+                                                }
                                             }
                                             println("SKU: $sku, Name: ${product.name}, Price: $finalPrice, Stock: $totalStock, Image URL: ${product.image}")
                                         }
